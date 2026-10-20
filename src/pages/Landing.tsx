@@ -9,7 +9,7 @@ export function Landing() {
         <div className="container hero-grid">
           <div>
             <h1>The right company for your dog.</h1>
-            <p className="lead">Small, matched play groups near home. A profile that speaks for your dog. Advice from owners of dogs like yours.</p>
+            <p className="lead">PawPop finds your dog a small group of dogs it gets along with, near home, and keeps a profile your sitter and groomer can read.</p>
             <div className="hero-ctas">
               <button className="btn btn-primary btn-lg" onClick={() => navigate('/join')}>
                 Get started
@@ -53,8 +53,8 @@ export function Landing() {
           <div>
             <h2>The profile, verified.</h2>
             <p className="lead small">
-              Written in your dog's voice and checked in person at the First Sniff. Share it with a sitter, walker, groomer, or landlord, so nobody
-              starts from zero.
+              Written in your dog's voice and checked in person at the First Sniff. Share it with a sitter, walker, groomer, or landlord, so they know your dog
+              before they meet it.
             </p>
           </div>
           <ProfileCard dog={STARTER_DOG} verified verifiedNote="First Sniff · Oct 24" />

@@ -26,7 +26,7 @@ const PLAY_STYLES: readonly PlayStyle[] = ['Chaser', 'Wrestler', 'Sniffer', 'Bal
 function FillButton({ onClick }: { onClick: () => void }) {
   return (
     <button type="button" className="fill-btn" onClick={onClick}>
-      ✨ Fill with sample data
+      Fill with sample data
     </button>
   )
 }
@@ -61,7 +61,7 @@ export function Join({ dog, setDog, person, setPerson, session, setSession }: Ap
               <div className="form-head">
                 <div>
                   <h2>Tell us about your dog</h2>
-                  <p className="muted">Be honest. Picky is normal, and it helps us find the right company.</p>
+                  <p className="muted">Many adult dogs are picky about other dogs. That is normal, and knowing it helps us match yours.</p>
                 </div>
                 <FillButton onClick={() => setDog(STARTER_DOG)} />
               </div>
@@ -102,6 +102,9 @@ export function Join({ dog, setDog, person, setPerson, session, setSession }: Ap
                 <Field label="Sex">
                   <Chips options={['Female', 'Male'] as const} value={dog.sex} onChange={(v) => set('sex', v)} />
                 </Field>
+                <Field label="Neutered or spayed">
+                  <Chips options={['Yes', 'No'] as const} value={dog.neutered ? 'Yes' : 'No'} onChange={(v) => set('neutered', v === 'Yes')} />
+                </Field>
                 <Field label="Energy">
                   <Chips options={['Low', 'Medium', 'High'] as const} value={dog.energy} onChange={(v) => set('energy', v)} />
                 </Field>
@@ -125,6 +128,17 @@ export function Join({ dog, setDog, person, setPerson, session, setSession }: Ap
                   <input value={dog.food} placeholder="Chicken makes me itch." onChange={(e) => set('food', e.target.value)} />
                 </Field>
               </div>
+              <div className="row two">
+                <Field label="Health notes and vet">
+                  <input value={dog.health} placeholder="Healthy. Vet: Dr. Lee, W 112th St." onChange={(e) => set('health', e.target.value)} />
+                </Field>
+                <Field label="Daily routine">
+                  <input value={dog.routine} placeholder="Walks at 7:30 a.m. and 6:30 p.m." onChange={(e) => set('routine', e.target.value)} />
+                </Field>
+              </div>
+              <Field label="Who can vouch for your dog?" hint="A neighbor, sitter, or walker who knows your dog well.">
+                <input value={dog.vouch} placeholder="Jordan (neighbor), Rosa T. (sitter)" onChange={(e) => set('vouch', e.target.value)} />
+              </Field>
               <div className="form-foot">
                 <span className="muted">Step 1 of 4</span>
                 <button className="btn btn-primary" onClick={() => go('About you')}>
@@ -151,6 +165,18 @@ export function Join({ dog, setDog, person, setPerson, session, setSession }: Ap
                   <input value={person.neighborhood} placeholder="Morningside Heights" onChange={(e) => setPerson({ ...person, neighborhood: e.target.value })} />
                 </Field>
               </div>
+              <div className="row wrap">
+                <Field label="Building">
+                  <Chips
+                    options={['Doorman building', 'Walk-up', 'Elevator, no doorman', 'House'] as const}
+                    value={person.building}
+                    onChange={(v) => setPerson({ ...person, building: v })}
+                  />
+                </Field>
+                <Field label="Experience with dogs">
+                  <Chips options={['First dog', 'A few dogs', 'Lifelong'] as const} value={person.experience} onChange={(v) => setPerson({ ...person, experience: v })} />
+                </Field>
+              </div>
               <Field label="When is your dog home alone?" hint="Only you and your host see this.">
                 <input value={person.aloneHours} placeholder="9 a.m. to 6 p.m. on weekdays" onChange={(e) => setPerson({ ...person, aloneHours: e.target.value })} />
               </Field>
@@ -172,6 +198,9 @@ export function Join({ dog, setDog, person, setPerson, session, setSession }: Ap
                     </button>
                   ))}
                 </div>
+              </Field>
+              <Field label="Anything you want to learn?" hint="Your host can cover it at the First Sniff.">
+                <input value={person.learn} placeholder="How to tell when my dog is getting nervous" onChange={(e) => setPerson({ ...person, learn: e.target.value })} />
               </Field>
               <div className="form-foot">
                 <button className="btn btn-ghost" onClick={() => go('Your dog')}>

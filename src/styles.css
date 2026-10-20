@@ -161,7 +161,11 @@ p { margin: 0; }
 @keyframes stamp { from { transform: scale(1.9) rotate(-14deg); opacity: 0; } to { transform: scale(1) rotate(-7deg); opacity: 1; } }
 .voice { margin: 16px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 15.5px; }
 .voice li { padding-left: 22px; position: relative; }
-.voice li::before { content: '🐾'; position: absolute; left: 0; font-size: 12px; top: 3px; opacity: 0.6; }
+.voice li::before { content: ''; position: absolute; left: 6px; top: 10px; width: 5px; height: 5px; border-radius: 50%; background: var(--brand); }
+
+.facts { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; margin: 14px 0 0; padding-top: 12px; border-top: 1px solid var(--line); font-size: 13.5px; }
+.facts dt { color: var(--muted); }
+.facts dd { margin: 0; }
 
 /* Join flow */
 .join { padding-top: 40px; padding-bottom: 80px; }

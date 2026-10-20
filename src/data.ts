@@ -18,6 +18,9 @@ export type DogProfile = {
   avoids: string
   scaredOf: string
   food: string
+  health: string
+  routine: string
+  vouch: string
 }
 
 export type PersonProfile = {
@@ -25,6 +28,9 @@ export type PersonProfile = {
   neighborhood: string
   aloneHours: string
   needs: string[]
+  building: 'Doorman building' | 'Walk-up' | 'Elevator, no doorman' | 'House'
+  experience: 'First dog' | 'A few dogs' | 'Lifelong'
+  learn: string
 }
 
 export const STARTER_DOG: DogProfile = {
@@ -41,6 +47,9 @@ export const STARTER_DOG: DogProfile = {
   avoids: 'big bouncy dogs who rush at me',
   scaredOf: 'elevators and loud trucks',
   food: 'Chicken makes me itch.',
+  health: 'Healthy, allergic to chicken. Vet: Dr. Lee, W 112th St.',
+  routine: 'Walks at 7:30 a.m. and 6:30 p.m. Naps all afternoon.',
+  vouch: 'Jordan (neighbor), Rosa T. (sitter)',
 }
 
 export const EMPTY_DOG: DogProfile = {
@@ -57,15 +66,21 @@ export const EMPTY_DOG: DogProfile = {
   avoids: '',
   scaredOf: '',
   food: '',
+  health: '',
+  routine: '',
+  vouch: '',
 }
 
-export const EMPTY_PERSON: PersonProfile = { name: '', neighborhood: '', aloneHours: '', needs: [] }
+export const EMPTY_PERSON: PersonProfile = { name: '', neighborhood: '', aloneHours: '', needs: [], building: 'Walk-up', experience: 'First dog', learn: '' }
 
 export const STARTER_PERSON: PersonProfile = {
   name: 'Maya',
   neighborhood: 'Morningside Heights',
   aloneHours: '9 a.m. to 6 p.m. on weekdays',
   needs: ['Play with the right dogs', 'A sitter I can trust'],
+  building: 'Walk-up',
+  experience: 'First dog',
+  learn: 'How to read when Biscuit is getting nervous',
 }
 
 export const NEED_OPTIONS = [
@@ -107,7 +122,7 @@ export const MATCHES: Friend[] = [
 ]
 
 export type Recommendation = {
-  category: 'Sitter' | 'Groomer' | 'Daycare' | 'Place'
+  category: 'Sitter' | 'Groomer' | 'Daycare' | 'Vet' | 'Place'
   name: string
   detail: string
   fromDogs: string
@@ -118,15 +133,10 @@ export type Recommendation = {
 
 export const RECOMMENDATIONS: Recommendation[] = [
   { category: 'Sitter', name: 'Rosa T. (home sitter)', detail: 'Small dogs only, quiet apartment, W 110th St', fromDogs: '3 calm small dogs within 10 blocks', wouldReturn: '3 of 3 would book again', lastUsed: 'Used 2 weeks ago by Pepper', checkedByHost: true },
+  { category: 'Sitter', name: 'Ben K. (drop-in visits)', detail: 'Two visits a day, small and senior dogs', fromDogs: '2 picky small dogs within 10 blocks', wouldReturn: '2 of 2 would book again', lastUsed: 'Used last month by Olive', checkedByHost: false },
+  { category: 'Vet', name: 'Riverside Animal Clinic', detail: 'Fear-free handling, written estimates before treatment', fromDogs: '6 small dogs nearby', wouldReturn: '5 of 6 would go back', lastUsed: 'Visited last week by Pepper', checkedByHost: true },
   { category: 'Groomer', name: 'Little Paws Grooming', detail: 'Hand-dry option for dogs scared of dryers', fromDogs: '4 nervous small dogs nearby', wouldReturn: '4 of 4 would go back', lastUsed: 'Used last week by Olive', checkedByHost: true },
   { category: 'Daycare', name: 'Westside Small Dog Den', detail: 'Separate room for small, low-energy dogs', fromDogs: '2 picky dogs like Biscuit', wouldReturn: '1 of 2 would go back', lastUsed: 'Used last month by Mochi', checkedByHost: false },
   { category: 'Place', name: 'Corner cafe patio, Amsterdam Ave', detail: 'Outdoor tables, quiet before 10 a.m.', fromDogs: '5 small dogs nearby', wouldReturn: '5 of 5 recommend', lastUsed: 'Visited yesterday by Mochi', checkedByHost: false },
 ]
 
-// The journey phases follow Shedroff's experience phases.
-export const JOURNEY = [
-  { phase: 'Initiation', steps: ['Welcome', 'One question'] },
-  { phase: 'Immersion', steps: ['Your dog', 'You', 'Profile in your dog\'s voice', 'Book a First Sniff'] },
-  { phase: 'Conclusion', steps: ['First Sniff day', 'Verified profile and matches'] },
-  { phase: 'Continuation', steps: ['Home', 'Recommendations', 'Share the profile'] },
-] as const

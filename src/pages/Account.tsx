@@ -5,7 +5,7 @@ import { Chips, DogAvatar, Field, ProfileCard } from '../ui'
 
 const TABS = ['Overview', 'Profile', 'Group', 'Recommendations', 'Share'] as const
 type Tab = (typeof TABS)[number]
-const CATEGORIES = ['Sitter', 'Groomer', 'Daycare', 'Place'] as const
+const CATEGORIES = ['Sitter', 'Groomer', 'Daycare', 'Vet', 'Place'] as const
 
 const UPCOMING_POPS = [
   { day: 'Sat, Oct 31', time: '9:00 to 9:45 a.m.', place: 'Church hall, W 114th St', going: ['Pepper', 'Mochi', 'Olive'], booked: true },
@@ -63,19 +63,17 @@ export function Account({ dog, person }: AppState) {
             <div className="panel">
               <span className="panel-label">From the First Sniff</span>
               <p className="host-quote">
-                "{d.name} is calm and curious and plays best with small or calm dogs. Fine with big dogs if they are calm. Lovely sniff-and-chase with
+                "{d.name} is calm and curious and plays best with small or calm dogs. Fine with big dogs if they are calm. Played sniff-and-chase with
                 Pepper."
               </p>
               <span className="muted">Dana R., PawPop host, CPDT-KA</span>
             </div>
             <button className="panel action" onClick={() => setTab('Recommendations')}>
-              <span className="action-icon">⭐</span>
-              <b>Find a sitter or groomer</b>
+                            <b>Find a sitter or groomer</b>
               <span>From owners of dogs like {d.name}</span>
             </button>
             <button className="panel action" onClick={() => setTab('Share')}>
-              <span className="action-icon">🔗</span>
-              <b>Share {d.name}'s profile</b>
+                            <b>Share {d.name}'s profile</b>
               <span>With a walker, sitter, groomer, or landlord</span>
             </button>
           </div>
@@ -124,7 +122,7 @@ export function Account({ dog, person }: AppState) {
             </div>
             <div>
               <h2>Upcoming Pops</h2>
-              <p className="muted">45 minutes, the same small group, a host every time.</p>
+              <p className="muted">45 minutes, the same small group, a host every time. $15 a Pop, or $20 a month for weekly Pops.</p>
               <div className="pop-list">
                 {UPCOMING_POPS.map((pop) => {
                   const isBooked = booked.includes(pop.day)
@@ -156,7 +154,7 @@ export function Account({ dog, person }: AppState) {
             <h2>Recommended for dogs like {d.name}</h2>
             <p className="muted">
               Only from owners of {d.size.toLowerCase()}, {d.sociability.toLowerCase()} dogs within 10 blocks, who actually went. Businesses cannot
-              pay to appear here.
+              pay to appear here. A "Checked by a host" badge means the business paid a flat fee for a host visit; it never changes the order.
             </p>
             <Chips options={CATEGORIES} value={category} onChange={setCategory} />
             <div className="rec-grid">
@@ -168,9 +166,9 @@ export function Account({ dog, person }: AppState) {
                   </div>
                   <div className="rec-detail">{r.detail}</div>
                   <div className="rec-proof">
-                    <span>🐾 {r.fromDogs}</span>
-                    <span>↺ {r.wouldReturn}</span>
-                    <span>🕑 {r.lastUsed}</span>
+                    <span>{r.fromDogs}</span>
+                    <span>{r.wouldReturn}</span>
+                    <span>{r.lastUsed}</span>
                   </div>
                   <button className="btn btn-ghost" onClick={() => setAsked(r.name)}>
                     {asked === r.name ? '✓ Message sent to the owner' : 'Ask the owner how it went'}
@@ -190,14 +188,14 @@ export function Account({ dog, person }: AppState) {
                   <p className="muted">They see {d.name}'s needs, food rules, fears, and past care notes. Never your address or schedule.</p>
                 </div>
                 <button type="button" className="fill-btn" onClick={() => setShare({ name: 'Rosa T.', role: 'Sitter', email: 'rosa.t@example.com' })}>
-                  ✨ Fill with sample data
+                  Fill with sample data
                 </button>
               </div>
               <Field label="Who is it for?">
                 <input value={share.name} placeholder="Rosa T." onChange={(e) => setShare({ ...share, name: e.target.value })} />
               </Field>
               <Field label="Their role">
-                <Chips options={['Sitter', 'Walker', 'Groomer', 'Daycare', 'Landlord'] as const} value={share.role as 'Sitter'} onChange={(v) => setShare({ ...share, role: v })} />
+                <Chips options={['Sitter', 'Walker', 'Groomer', 'Daycare', 'Vet', 'Landlord'] as const} value={share.role as 'Sitter'} onChange={(v) => setShare({ ...share, role: v })} />
               </Field>
               <Field label="Email or phone">
                 <input value={share.email} placeholder="rosa.t@example.com" onChange={(e) => setShare({ ...share, email: e.target.value })} />

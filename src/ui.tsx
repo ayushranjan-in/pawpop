@@ -58,6 +58,7 @@ export function ProfileCard({ dog, verified, verifiedNote }: { dog: DogProfile; 
           <div className="stamp">
             Verified
             <small>{verifiedNote ?? 'First Sniff · Oct 24'}</small>
+            <small>Host: Dana R.</small>
           </div>
         ) : (
           <div className="stamp pending">Not yet verified</div>
@@ -68,6 +69,28 @@ export function ProfileCard({ dog, verified, verifiedNote }: { dog: DogProfile; 
           <li key={line}>{line}</li>
         ))}
       </ul>
+      <dl className="facts">
+        <dt>Neutered</dt>
+        <dd>{dog.neutered ? 'Yes' : 'No'}</dd>
+        {dog.routine && (
+          <>
+            <dt>Routine</dt>
+            <dd>{dog.routine}</dd>
+          </>
+        )}
+        {dog.health && (
+          <>
+            <dt>Health and vet</dt>
+            <dd>{dog.health}</dd>
+          </>
+        )}
+        {dog.vouch && (
+          <>
+            <dt>Vouched for by</dt>
+            <dd>{dog.vouch}</dd>
+          </>
+        )}
+      </dl>
     </div>
   )
 }

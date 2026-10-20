@@ -1,11 +1,14 @@
-PAWPOP
+PawPop
+
 The right company for your dog.
 Product brief, version 1.0, 20 October 2026
-Team: The Connectors, User Centric Design and Innovation, Columbia University
+Team: PawPop, User Centric Design and Innovation, Columbia University
 
-This document is the team's single source for the project. Slides, the Miro board, the prototype website, and the midterm talk all draw from it. When anything here changes, change it here first.
+This is the team's source document. Slides, the Miro board, the website, and the midterm talk all draw from it. If something changes, change it here first.
 
-Status: the product is a prototype. The service, the user journey, and the screens are designed and demonstrated; the first live pilot has not run yet.
+Prototype website: https://pawpop-tmgt.vercel.app
+
+Status: prototype. The service, the user journey, and the screens are designed. The first live pilot has not run yet.
 
 
 ==================================================
@@ -51,7 +54,7 @@ New Yorkers constantly hand a family member to strangers (walkers, sitters, dayc
 - Owners of nervous dogs want a few calm friends, not more strangers. A post titled "My reactive dog made 3 friends in under 10 days" scored 1,239 upvotes; the top question was "How did you find the calm dogs?" (r/reactivedogs, 2026-09-03)
 - Trust is built in person and then leaves the platform: a Rover walker "would go off rover with a few folks once they established trust." (r/AskNYC, 2026-03-09)
 
-Every quote in this section was matched word for word against its original post.
+All quotes are verbatim from the original posts.
 
 2.4 What the data says
 
@@ -147,7 +150,7 @@ Example of the dog's voice: "I'm Teo. I love slow sniffers and the grass by the 
 - When an owner needs a groomer, daycare, sitter, vet, or dog-friendly place, PawPop shows what owners of similar dogs nearby actually used and how it went for their dog.
 - "Similar" means matched on the verified profile: size, temperament, play style, health notes, neighborhood.
 - Each recommendation shows who it comes from ("3 calm small dogs within 10 blocks went here; 2 would go back") and when.
-- The rule that protects trust: providers can never pay to be recommended or ranked. Partners may pay a flat fee to be checked by a host and to receive PawPop profiles, and PawPop says so on every page. If a business pays PawPop, it is labeled.
+- Providers can never pay to be recommended or ranked. Partners may pay a flat fee for a host visit and to receive PawPop profiles. A paid check shows a "Checked by a host" label and never changes the order.
 
 4.6 What PawPop is not
 
@@ -161,18 +164,18 @@ Example of the dog's voice: "I'm Teo. I love slow sniffers and the grass by the 
 5. THE USER JOURNEY
 ==================================================
 
-Persona: Maya, 29, works in Midtown, lives on West 108th Street with Biscuit, a 3-year-old 18-pound mix who barks at big dogs and hates the dog run.
+Persona: Maya, 29, works in Midtown, lives on West 108th Street with Biscuit, a 3-year-old French bulldog mix who is scared of big bouncy dogs and avoids the dog run.
 
 Phase 1: Initiation (discover and decide)
-1. Maya sees a PawPop sign at her building or a flyer at her vet: "Does your dog hate the dog run? Find the right company." Or a neighbor tells her.
-2. She opens the site. The first screen asks one question: "What is your dog like with other dogs?" She picks "Picky. Big dogs scare her."
-3. She sees the next First Sniff near her (Saturday 9 a.m., St. John's church hall, 4 spots left) and how it works in three steps.
+1. Maya sees a PawPop flyer at her vet, or a neighbor tells her about it.
+2. She opens the site and reads how it works: profile, First Sniff, Pops. She taps Get started.
+3. The first question: "What is your dog like with other dogs?" She picks "Picky: some dogs yes, some dogs no."
 
 Phase 2: Immersion (sign up and meet)
-4. She builds Biscuit's profile and her own in about 10 minutes. The site writes Biscuit's profile back to her in Biscuit's voice, and she edits it.
-5. She books the First Sniff. She gets a reminder and a short "what to expect" note.
-6. Saturday: the host greets her by name, introduces Biscuit to one calm dog through a fence first, then to two more. Maya watches Biscuit play with a small female terrier.
-7. Within an hour, the host verifies Biscuit's profile, corrects one line (Biscuit is fine with big dogs if they are calm), and stamps it.
+4. She fills in Biscuit's profile and her own in about 10 minutes. Next to the form, the profile writes itself in Biscuit's voice. She reviews it.
+5. She books the First Sniff: Saturday, 9 a.m., a church hall on West 114th Street, a 6-minute walk, 2 spots left. The confirmation tells her what to expect and what to bring.
+6. Saturday: the host greets her by name and reads the profile. Biscuit meets Olive, a calm Australian shepherd mix, through a fence, then goes off leash with Olive and Pepper, a beagle. She plays sniff-and-chase with Pepper. A bouncy Lab joins; Biscuit steps back, then settles.
+7. Within an hour, the host verifies Biscuit's profile, corrects one line (fine with big dogs if they are calm), and stamps it with the date and the host's name.
 
 Phase 3: Conclusion (the first result)
 8. Maya gets Biscuit's verified profile and her match: three dogs who played well with Biscuit, with their owners' first names.
@@ -242,7 +245,7 @@ Neighbors without dogs
 
 
 ==================================================
-9. COMPETITORS AND WHY PAWPOP WINS
+9. COMPETITORS
 ==================================================
 
 Free dog run: free and close, but uncontrolled; fails nervous, small, and senior dogs.
@@ -252,7 +255,7 @@ Sniffspot: private and safe, but needs yards Manhattan does not have, and gives 
 Google, Yelp, BringFido: everywhere, but ratings from strangers whose dogs are nothing like yours.
 Facebook groups, Reddit: real people, but scattered and citywide.
 
-PawPop's edge on the drivers that matter: safety and fit (matched, staffed), trust (verified in person, recommendations from similar dogs), close to home (borrowed spaces within 10 blocks).
+Where PawPop is stronger, on the drivers in section 3: safety and fit (matched, staffed), trust (verified in person, recommendations from similar dogs), and distance (borrowed spaces within 10 blocks).
 
 
 ==================================================
@@ -266,7 +269,7 @@ Success measures:
 - At least 2 playdates happen within a week without the team arranging them.
 - Owners rate their own stress lower after the session than before.
 - At least half book a second Pop.
-Expert to consult: Alexandra Horowitz, Dog Cognition Lab, Barnard College (across Broadway).
+Expert to consult: Alexandra Horowitz, Dog Cognition Lab, Barnard College.
 
 
 ==================================================
