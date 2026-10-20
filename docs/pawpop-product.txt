@@ -1,0 +1,324 @@
+PAWPOP
+The right company for your dog.
+Product brief, version 1.0, 20 October 2026
+Team: The Connectors, User Centric Design and Innovation, Columbia University
+
+This document is the team's single source for the project. Slides, the Miro board, the prototype website, and the midterm talk all draw from it. When anything here changes, change it here first.
+
+Status: the product is a prototype. The service, the user journey, and the screens are designed and demonstrated; the first live pilot has not run yet.
+
+
+==================================================
+1. PAWPOP IN ONE PARAGRAPH
+==================================================
+
+PawPop helps New York dog owners find the right company for their dog: the right dog friends, the right people to care for it, and the right places to take it. Owners build a profile of their dog and of themselves online. At a small, staffed first meeting called the First Sniff, a PawPop host watches the dog play and verifies the profile. From then on, the verified profile does three jobs. It matches the dog into a small group of compatible dogs that meets for short play sessions, called Pops, in borrowed spaces near home. It travels with the dog to every walker, sitter, groomer, and daycare, so nobody handles the dog blind. And it powers recommendations that come from owners of similar dogs nearby who actually used the place, never from who pays. PawPop is the friend who knows your dog.
+
+
+==================================================
+2. THE PROBLEM
+==================================================
+
+2.1 The problem in one sentence
+
+New Yorkers constantly hand a family member to strangers (walkers, sitters, daycares, groomers, vets, other people's dogs, landlords), and nobody in that chain actually knows the dog, so owners choose by star ratings they do not trust, carry everything the dog needs in their own heads, and do it alone.
+
+2.2 What we heard (team interviews, about 11 owners)
+
+- Which dogs get along was the most repeated theme: about 7 of 11 interviewees raised size, sex, neuter status, leash reactivity, or a dog that wants no dog friends at all.
+  "My dog is very sensitive and does not get along well with other dogs." (Ani)
+  "She doesn't have dog friends and doesn't want them." (Ani)
+  "They don't like male dogs, they always get along with female dogs." (Carol)
+- Trust comes from people who know, not from ratings.
+  "If another dog owner tells me they love their vet, I trust that more than just seeing five stars online." (Pablo)
+  "I'd want real recommendations from people who actually live around me." (Kai)
+  "I don't trust any trainer and I want to meet the trainer before." (team voice notes)
+- Owners want local and specific, not another general group.
+  "I don't really need another general dog group. I want to know who has a dog like ten minutes away from me." (Mia)
+  "It would be nice if my dog had his own little friend group." (Kai)
+- Information is scattered and contradictory.
+  "You Google one question and somehow end up with ten completely different answers." (Mia)
+  "I feel like I have to search five different apps just to figure out where I can take my dog." (Mia)
+- "Dog-friendly" often is not.
+  "Sometimes 'dog-friendly' doesn't really mean dog-friendly when you have a big dog." (Kai)
+- Care while away is hard and costly: work, travel, errands, dog walkers that "can get expensive too" (Pablo); "Finding somewhere where he can stay while I travel is like the worst." (owner in a dachshund meetup group)
+
+2.3 What New York owners say unprompted (Reddit and news, 2023 to 2026)
+
+- The top practical pain is trusted cover when the owner cannot be there. Two NYC owners asked, unprompted, for a way to trade dog care with neighbors: "I wish there was a rotating support system of folks that we could do doggy care for amongst friends but I can't find this in my groups." (r/AskNYC, 2026-08-24)
+- Trust ranks people, then neighbors, then apps: "people you know > rec's from other cat owners in your building > rover" (r/AskNYC, 2026-03-03). Some of the worst stories came from businesses with good reviews: "I only see five star reviews for her." (r/AskNYC, 2025-04-14, after an at-home euthanasia billed $1,400 above market rate)
+- A single owner spends close to $1,000 a month: walkers at $600 to $800 a month, daycare at about $55 a day, sitters at $90 to $100 a night.
+- Owners of nervous dogs want a few calm friends, not more strangers. A post titled "My reactive dog made 3 friends in under 10 days" scored 1,239 upvotes; the top question was "How did you find the calm dogs?" (r/reactivedogs, 2026-09-03)
+- Trust is built in person and then leaves the platform: a Rover walker "would go off rover with a few folks once they established trust." (r/AskNYC, 2026-03-09)
+
+Every quote in this section was matched word for word against its original post.
+
+2.4 What the data says
+
+- About 528,000 NYC households (15.4%) have a dog and 367,000 (10.7%) have a cat. (2023 NYC Housing and Vacancy Survey)
+- Reported dog bites in NYC reached a record 5,049 in 2025, up 25% in one year. 311 complaints about off-leash dogs in parks rose 147% from 2020 to 2025. (NYC Open Data)
+- 72.5% of pet dogs show at least one highly problematic behavior; 17% fear other dogs; dogs in more urban areas fear other dogs and strangers more. (Salonen et al. 2020, 13,715 dogs; Puurunen et al. 2020)
+- Veterinary behaviorists say most adult dogs play best in pairs and that "you cannot choose your dog's friends at a public park." Dog-park time raised dogs' stress hormone where a leashed walk did not. (VCA Animal Hospitals, 2025; Ottenheimer Carrier et al. 2013)
+- Every daycare runs its own behavior test (Dogtopia, Camp Bow Wow, D Is For Doggy), and the result never leaves the building.
+- The city itself asks for a dog profile: the Mayor's Office of Animal Welfare's 2025 housing guide promotes a "Pet Personality Profile" and a "pet resume".
+- 52% of US owners skipped or declined recommended vet care in a year; 73% of those who declined because of cost say they were never offered a cheaper option. (PetSmart Charities and Gallup, 2025)
+- The densest licensed-dog ZIP code in the city is 10025, Columbia's own neighborhood. (NYC Dog Licensing Dataset)
+
+Links to every source are in section 14.
+
+2.5 Why the obvious answers fail
+
+- A social app to meet nearby dogs: the most-tried and most-failed idea in the space (Dogster's community closed in 2019, Dig closed in 2022; a current playdate app averages about 45 users per city). Empty at launch.
+- A directory of "trusted" providers: already done by Google, Yelp, BringFido, and Rover, and star ratings are exactly what owners distrust.
+- A walker marketplace: Rover owns it (bought by Blackstone for $2.3 billion in 2024); Wag! went through bankruptcy in 2025.
+- A building with everything: PetSmart with a Banfield vet inside already covers most of it.
+- Drop-off boxes on the sidewalk: built in Brooklyn (DogSpot); the city ordered them off the sidewalks in 2017.
+
+
+==================================================
+3. WHO PAWPOP IS FOR
+==================================================
+
+First customer (the pilot): dog owners on the Upper West Side and in Morningside Heights whose dogs do not fit the free-for-all dog run. That includes nervous or reactive dogs, small dogs, senior dogs, and new owners who do not yet know how their dog plays.
+
+Why them first: they feel the problem every day, the free dog run fails them, nobody serves them well in Manhattan, and they live where Columbia students can run the pilot on foot.
+
+Later: all NYC dog owners; then cat owners (cats are 61% of the city shelter's intake and their owners' top pain is a trusted sitter).
+
+What they choose on (decision drivers):
+1. Is it safe and right for my dog?
+2. Does someone who knows my dog vouch for it?
+3. Is it close to home?
+4. Does it fit my hours (before work, after work)?
+5. Is it affordable?
+
+
+==================================================
+4. WHAT PAWPOP DOES (THE SERVICE)
+==================================================
+
+4.1 The profile (the owner builds it online)
+
+The owner fills in two linked profiles in about 10 minutes.
+
+The dog's profile, written in the dog's own voice:
+- Name, photo, breed or mix, age, size, sex, neutered or not
+- How it plays (chaser, wrestler, sniffer, ball fanatic, prefers people)
+- Energy level
+- Who it loves and who it does not (for example "small calm dogs yes, big bouncy males no")
+- What scares it (noises, elevators, umbrellas)
+- Food rules and allergies
+- Health notes and vet
+- Its daily routine
+- People who can vouch for it
+
+The person's profile:
+- Name, neighborhood, building type
+- Schedule (when the dog is alone, when they can walk)
+- What they need help with (play, walks, sitting, travel cover, finding places)
+- Their experience with dogs
+- What they want to learn
+
+Example of the dog's voice: "I'm Teo. I love slow sniffers and the grass by the river. Big bouncy boys scare me. Chicken makes me itch."
+
+4.2 The First Sniff (verified in person)
+
+- A free, 45-minute session with 3 to 5 dogs in a borrowed space near home.
+- A PawPop host (a certified, reward-based trainer) watches how each dog plays and checks the profile against what the dog actually does.
+- The host verifies or corrects the profile and adds a "Verified at First Sniff" stamp with the date and the host's name.
+- Dogs that should not mix get a private slot instead, and their profile says so kindly ("I prefer people. Please give me space.").
+- Owners leave knowing which dogs played well with theirs.
+
+4.3 Pops (the recurring play sessions)
+
+- 45 minutes, 3 to 6 matched dogs, the same small group where possible, run by a host.
+- Held in borrowed spaces: church halls and school yards at off hours, closed restaurant backyards, dog runs at quiet hours. PawPop does not lease a venue.
+- Quiet Pops: private slots for dogs that want no company.
+- Every Pop adds a stamp to the dog's profile.
+
+4.4 The profile travels (handoffs)
+
+- One link or QR code shares the verified profile with a walker, sitter, groomer, daycare, vet, or landlord.
+- The profile works as the "pet resume" the city recommends for renters.
+- After a handoff, the caregiver can add one line ("Teo was calm at the groomer, nervous of the dryer").
+
+4.5 Recommendations from dogs like yours
+
+- When an owner needs a groomer, daycare, sitter, vet, or dog-friendly place, PawPop shows what owners of similar dogs nearby actually used and how it went for their dog.
+- "Similar" means matched on the verified profile: size, temperament, play style, health notes, neighborhood.
+- Each recommendation shows who it comes from ("3 calm small dogs within 10 blocks went here; 2 would go back") and when.
+- The rule that protects trust: providers can never pay to be recommended or ranked. Partners may pay a flat fee to be checked by a host and to receive PawPop profiles, and PawPop says so on every page. If a business pays PawPop, it is labeled.
+
+4.6 What PawPop is not
+
+- Not a social feed and not a dating app for dogs.
+- Not a walker marketplace.
+- Not a vet and not medical advice. Health questions go to a vet.
+- Not a venue. PawPop borrows space.
+
+
+==================================================
+5. THE USER JOURNEY
+==================================================
+
+Persona: Maya, 29, works in Midtown, lives on West 108th Street with Biscuit, a 3-year-old 18-pound mix who barks at big dogs and hates the dog run.
+
+Phase 1: Initiation (discover and decide)
+1. Maya sees a PawPop sign at her building or a flyer at her vet: "Does your dog hate the dog run? Find the right company." Or a neighbor tells her.
+2. She opens the site. The first screen asks one question: "What is your dog like with other dogs?" She picks "Picky. Big dogs scare her."
+3. She sees the next First Sniff near her (Saturday 9 a.m., St. John's church hall, 4 spots left) and how it works in three steps.
+
+Phase 2: Immersion (sign up and meet)
+4. She builds Biscuit's profile and her own in about 10 minutes. The site writes Biscuit's profile back to her in Biscuit's voice, and she edits it.
+5. She books the First Sniff. She gets a reminder and a short "what to expect" note.
+6. Saturday: the host greets her by name, introduces Biscuit to one calm dog through a fence first, then to two more. Maya watches Biscuit play with a small female terrier.
+7. Within an hour, the host verifies Biscuit's profile, corrects one line (Biscuit is fine with big dogs if they are calm), and stamps it.
+
+Phase 3: Conclusion (the first result)
+8. Maya gets Biscuit's verified profile and her match: three dogs who played well with Biscuit, with their owners' first names.
+9. She books the next Pop with the same group.
+
+Phase 4: Continuation (the relationship)
+10. Week 2 onward: weekly Pops with the same small group. Owners start to know each other.
+11. Maya needs a sitter for a weekend. She opens Recommendations, sees two sitters used by owners of similar dogs nearby, books one, and shares Biscuit's profile by link.
+12. The sitter adds a note after the weekend. The note appears on the profile.
+13. Month 3: Maya and two owners from Biscuit's group cover each other's walks on late workdays.
+
+The moments of truth (where trust is won or lost):
+- The first introduction at the First Sniff (the moment owners fear most).
+- The first handoff to a stranger (sitter, groomer).
+- The first recommendation she acts on.
+
+
+==================================================
+6. HOW THE PERSON CHANGES
+==================================================
+
+Emotional: from dread on every walk ("will someone's dog rush mine?") to relief; she knows who her dog plays well with.
+Social: from random encounters, or isolation for owners of nervous dogs, to a small, steady group of people who know her dog by name.
+Practical: from every walker and sitter starting from zero, and five apps for one question, to one verified profile that speaks for the dog and recommendations she trusts.
+Identity: from "owner of the difficult dog" or the anxious new owner to a member of a pack whose dog's needs are known and normal.
+
+Core meanings delivered (Shedroff's 15 core meanings): Security, Community, Validation, Oneness, Duty.
+
+
+==================================================
+7. VALUE FOR EVERY STAKEHOLDER (5 KINDS OF VALUE)
+==================================================
+
+Owner
+- Functional: safe play, a profile that works everywhere, recommendations that fit the dog.
+- Financial: fewer wasted trials (daycares, groomers that do not suit the dog); later, swapping walks with trusted neighbors.
+- Emotional: relief, confidence.
+- Identity: "a good owner whose dog's needs are understood".
+- Meaning: security, community.
+
+Dog
+- Chosen company instead of forced encounters; private space when it wants none; caregivers who know its fears and food rules.
+
+Hosts (certified trainers)
+- Paid sessions, new clients, a public record of skill in a field with no license.
+
+Walkers, sitters, groomers, daycares
+- Fewer bad-fit dogs and blind handoffs; the dog's history arrives before the dog.
+
+Space hosts (churches, schools, restaurants, dog-run volunteer groups)
+- Small fee or donation, foot traffic, community goodwill. NYC's 95 dog runs are each kept up by a volunteer group.
+
+Vets
+- Clients who arrive with history; NYC clinics are losing visits and want new clients.
+
+Neighbors without dogs
+- Fewer uncontrolled encounters; a shared "give me space" signal that Pops teach.
+
+
+==================================================
+8. HOW PAWPOP MAKES MONEY (PROPOSED)
+==================================================
+
+- Owners: First Sniff free. Pops at about $15 each, or a membership at about $20 a month for weekly Pops and full profile features.
+- Partners: a flat fee to be checked and to receive PawPop profiles. Never pay-for-rank, and always labeled.
+- Precedents: Sniffspot rents private yards by the hour (about $10 per dog per hour) and moved to memberships; BorrowMyDoggy charges owners about GBP 49 a year for verified, insured matches.
+
+
+==================================================
+9. COMPETITORS AND WHY PAWPOP WINS
+==================================================
+
+Free dog run: free and close, but uncontrolled; fails nervous, small, and senior dogs.
+Daycare: supervised, but about $55 to $65 a day, and its behavior test stays private.
+Rover and Wag!: many sitters, but strangers rated by stars; nothing about the dog travels.
+Sniffspot: private and safe, but needs yards Manhattan does not have, and gives no friends.
+Google, Yelp, BringFido: everywhere, but ratings from strangers whose dogs are nothing like yours.
+Facebook groups, Reddit: real people, but scattered and citywide.
+
+PawPop's edge on the drivers that matter: safety and fit (matched, staffed), trust (verified in person, recommendations from similar dogs), close to home (borrowed spaces within 10 blocks).
+
+
+==================================================
+10. THE PILOT (HOW WE PROVE IT)
+==================================================
+
+Where: Upper West Side and Morningside Heights (ZIP 10025, the densest licensed-dog ZIP in NYC).
+What: one First Sniff with 6 to 8 dogs in a borrowed room or a Riverside Park dog run at a quiet hour, run with a certified trainer.
+Success measures:
+- At least 3 owner pairs swap numbers.
+- At least 2 playdates happen within a week without the team arranging them.
+- Owners rate their own stress lower after the session than before.
+- At least half book a second Pop.
+Expert to consult: Alexandra Horowitz, Dog Cognition Lab, Barnard College (across Broadway).
+
+
+==================================================
+11. RISKS AND OUR ANSWERS
+==================================================
+
+Bites: certified hosts, small groups, fence-first introductions, private slots for dogs that should not mix, liability waiver and insurance.
+Labels can hurt: the profile says "plays best with", never "bad with", and is written in the dog's voice.
+Frequency: Pops are weekly; daily needs (walks, sitting) come through recommendations and, later, trusted neighbors.
+Trust in recommendations: no pay-for-rank, sources shown on every recommendation.
+Empty at launch: a First Sniff with 4 dogs is a complete product on day one.
+App fatigue: one website, no download needed; the core happens in person.
+
+
+==================================================
+12. WHAT COMES LATER (NOT THE FIRST SERVICE)
+==================================================
+
+- Neighbor care circles: owners from the same Pop group cover each other's walks and sitting.
+- Cats: trusted sitters and a carrier-training workshop.
+- Shelter dogs: profiles for adoptable dogs, so adopters know how a dog plays.
+
+
+==================================================
+13. HOW THE PROJECT CHANGED (FOR THE MIDTERM STORY)
+==================================================
+
+Week 2 to 5: we started with a social app for dog owners, then a local app for tips, compatible dogs, and places. The professor warned twice against "an app that does it all", asked for one community context and one primary service, asked what creates value before the network is large, and asked how the person changes.
+Week 6 restart: research across 8 areas (NYC data, industry, competitors, owner voices online, stakeholders, dog science, whimsical precedents, course frameworks) showed that the app ideas had already failed elsewhere and that the real gap is trust that travels with the dog. PawPop now proves one thing first: the right company for your dog, verified in person.
+
+
+==================================================
+14. SOURCES
+==================================================
+
+Primary research: the team's interviews with about 11 dog owners (2026) and the team's voice notes on the earlier "building" idea.
+
+External sources:
+- NYC Housing and Vacancy Survey 2023, public files: https://www.nyc.gov/assets/hpd/data/occupied_puf_23.csv
+- NYC Dog Bite Data: https://data.cityofnewyork.us/Health/DOHMH-Dog-Bite-Data/rsgh-akpg
+- NYC Dog Licensing Dataset: https://data.cityofnewyork.us/Health/NYC-Dog-Licensing-Dataset/nu7n-tubp
+- Mayor's Office of Animal Welfare, Pet-Inclusive Housing guide (2025): https://www.nyc.gov/assets/animalwelfare/downloads/pdf/Pet-Inclusive-Housing-in-NYC-A-Guide-on-Best-Practices.pdf
+- Salonen et al. 2020, Scientific Reports: https://www.nature.com/articles/s41598-020-59837-z
+- Puurunen et al. 2020, Scientific Reports: https://pmc.ncbi.nlm.nih.gov/articles/PMC7044223/
+- VCA Animal Hospitals, social groups for dogs: https://vcahospitals.com/know-your-pet/social-groups-for-dogs
+- PetSmart Charities and Gallup 2025: https://news.gallup.com/poll/659057/pet-owners-skipped-declined-veterinary-care.aspx
+- Wood et al. 2015, The Pet Factor, PLOS ONE: https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0122085
+- Blackstone completes Rover acquisition (2024): https://www.globenewswire.com/news-release/2024/02/27/2836062/0/en/Blackstone-Completes-Acquisition-of-Rover.html
+- Wag! Chapter 11 completion (2025): https://www.globenewswire.com/news-release/2025/09/02/3142423/0/en/Wag-Group-Co-Successfully-Completes-Pre-Packaged-Chapter-11-Plan-of-Reorganization.html
+- Dogster community closure (2019): https://www.dogster.com/a-fond-farewell-to-our-community-areas/
+- DogSpot removal order (Patch, 2017): https://patch.com/new-york/bed-stuy/high-tech-dog-houses-must-go-dot-tells-brooklyn-business
+- r/AskNYC support networks thread (2026): https://www.reddit.com/r/AskNYC/comments/1vx5ax7/
+- r/reactivedogs "3 friends" thread (2026): https://www.reddit.com/r/reactivedogs/comments/1w641st/
+
+Note on verification: the figures above come from sources opened and read directly. Re-open the link before putting any number on a slide.

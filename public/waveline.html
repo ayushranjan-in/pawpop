@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>PawPop waveline: current vs ideal</title>
+<style>
+  :root {
+    --surface: #fcfcfb; --page: #f9f9f7; --ink: #0b0b0b; --ink2: #52514e; --muted: #898781; --grid: #e6e4df;
+    --current: #2a78d6; --ideal: #eb6834;
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  }
+  body { margin: 0; background: var(--page); color: var(--ink); }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 28px 32px; }
+  h1 { font-size: 24px; margin: 0 0 4px; }
+  .sub { color: var(--ink2); margin: 0 0 14px; font-size: 14px; }
+  .legend { display: flex; gap: 22px; font-size: 14px; color: var(--ink2); margin-bottom: 8px; align-items: center; }
+  .key { display: inline-flex; align-items: center; gap: 8px; }
+  .key i { width: 22px; height: 0; border-top: 2px solid; display: inline-block; }
+  .card { background: var(--surface); border: 1px solid var(--grid); border-radius: 12px; padding: 12px; position: relative; }
+  svg text { font-family: inherit; }
+  .tip { position: absolute; pointer-events: none; background: #fff; border: 1px solid var(--grid); border-radius: 8px; padding: 8px 10px; font-size: 13px; box-shadow: 0 4px 14px rgba(0,0,0,.08); max-width: 260px; display: none; }
+  .tip b { display: block; }
+  .opps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 14px; }
+  .opp { background: var(--surface); border: 1px solid var(--grid); border-radius: 12px; padding: 12px 14px; font-size: 13.5px; color: var(--ink2); }
+  .opp b { color: var(--ink); display: block; margin-bottom: 4px; font-size: 14px; }
+  details { margin-top: 14px; font-size: 13px; color: var(--ink2); }
+  table { border-collapse: collapse; width: 100%; margin-top: 8px; }
+  td, th { border-bottom: 1px solid var(--grid); padding: 5px 8px; text-align: left; }
+  .foot { font-size: 12px; color: var(--muted); margin-top: 10px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Waveline: a picky dog's owner in New York, today versus with PawPop</h1>
+  <p class="sub">Intensity of the experience over time (Shedroff's waveline). Up is desirable, down is undesirable. Each point names the feeling or core meaning at that moment. Persona: Maya, Morningside Heights, with Biscuit, a small dog who is scared of big bouncy dogs.</p>
+  <div class="legend">
+    <span class="key"><i style="border-color:var(--current)"></i>Current experience (from interviews and NYC owner posts)</span>
+    <span class="key"><i style="border-color:var(--ideal)"></i>Ideal experience with PawPop</span>
+  </div>
+  <div class="card"><svg id="chart" viewBox="0 0 1180 560" width="100%" role="img" aria-label="Waveline chart comparing current and ideal experience"></svg><div class="tip" id="tip"></div></div>
+  <div class="opps">
+    <div class="opp"><b>Opportunity 1: the first meeting between two strangers' dogs</b>Today the lowest point (rushed at the dog run). PawPop turns it into the First Sniff: a host, a fence-first introduction, 3 to 5 matched dogs. The moment of truth.</div>
+    <div class="opp"><b>Opportunity 2: handing the dog to a stranger</b>Today a sitter picked from star ratings knows nothing about the dog. With PawPop the sitter comes from owners of similar dogs and gets the verified profile.</div>
+    <div class="opp"><b>Opportunity 3: carrying it alone</b>Today the experience ends in isolation and about $1,000 a month in paid help. With PawPop it continues into a small pack that knows the dog by name.</div>
+  </div>
+  <details><summary>Table view</summary><table id="table"></table></details>
+  <p class="foot">Sources: team interviews with about 11 dog owners; NYC owner posts on Reddit (2023 to 2026); NYC dog-bite and 311 data. Intensity values are the team's judgment from that evidence, not measurements.</p>
+</div>
+<script>
+const PHASES = ['Initiation', 'Immersion', 'Conclusion', 'Continuation']
+// x is position on the time axis (0 to 9), y is intensity (-3 undesirable to +3 desirable)
+const current = [
+  { x: 0.5, y: 2, label: 'Gets a dog', feel: 'Joy, wonder' },
+  { x: 1.5, y: -2.5, label: 'Rushed by an off-leash dog at the run', feel: 'Fear', mark: 1 },
+  { x: 2.5, y: -1, label: 'Googles it: ten different answers', feel: 'Confusion' },
+  { x: 3.5, y: -2, label: 'Walks at odd hours to avoid other dogs', feel: 'Isolation, shame' },
+  { x: 4.5, y: -1.5, label: 'Daycare test: not a fit', feel: 'Rejection' },
+  { x: 5.5, y: -1, label: 'Picks a sitter from star ratings', feel: 'Anxiety', mark: 2 },
+  { x: 6.5, y: -1.5, label: 'Sitter knows nothing about the dog', feel: 'Worry' },
+  { x: 7.5, y: -1, label: 'About $1,000 a month in paid help', feel: 'Strain' },
+  { x: 8.5, y: -2, label: 'Still carrying it alone', feel: 'Isolation', mark: 3 },
+]
+const ideal = [
+  { x: 0.5, y: 1, label: 'A neighbor mentions PawPop', feel: 'Hope' },
+  { x: 1.5, y: 1.5, label: '"Picky is normal": one question', feel: 'Validation' },
+  { x: 2.5, y: 1.2, label: 'Builds the profile in the dog\'s voice', feel: 'Delight' },
+  { x: 3.5, y: 0.3, label: 'First Sniff: fence-first introduction', feel: 'Nervous anticipation', mark: 1 },
+  { x: 4.5, y: 2.3, label: 'Profile verified and stamped', feel: 'Truth, security' },
+  { x: 5.5, y: 3, label: 'Meets three dogs that play well with hers', feel: 'Community' },
+  { x: 6.5, y: 2, label: 'Weekly Pops with the same small group', feel: 'Oneness, routine' },
+  { x: 7.5, y: 2.4, label: 'Sitter from similar dogs, profile shared', feel: 'Security', mark: 2 },
+  { x: 8.5, y: 2.9, label: 'Swaps walks with the pack', feel: 'Community, freedom', mark: 3 },
+]
+const W = 1180, H = 560, L = 70, R = 30, T = 40, B = 70
+const sx = (x) => L + (x / 9) * (W - L - R)
+const sy = (y) => T + ((3 - y) / 6) * (H - T - B)
+const svg = document.getElementById('chart')
+const ns = 'http://www.w3.org/2000/svg'
+const el = (tag, attrs, text) => { const e = document.createElementNS(ns, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (text) e.textContent = text; svg.appendChild(e); return e }
+
+// phase bands and labels
+PHASES.forEach((p, i) => {
+  const x0 = sx(i * 9 / 4), x1 = sx((i + 1) * 9 / 4)
+  if (i > 0) el('line', { x1: x0, x2: x0, y1: T - 20, y2: H - B, stroke: '#e6e4df', 'stroke-dasharray': '4 4' })
+  el('text', { x: (x0 + x1) / 2, y: H - B + 40, 'text-anchor': 'middle', fill: '#52514e', 'font-size': 14, 'font-weight': 600 }, p)
+})
+// y grid
+;[-3, 0, 3].forEach((v) => {
+  el('line', { x1: L, x2: W - R, y1: sy(v), y2: sy(v), stroke: v === 0 ? '#c9c7c1' : '#eeece8' })
+})
+el('text', { x: L - 10, y: sy(3) + 4, 'text-anchor': 'end', fill: '#898781', 'font-size': 12 }, 'Desirable')
+el('text', { x: L - 10, y: sy(0) + 4, 'text-anchor': 'end', fill: '#898781', 'font-size': 12 }, 'Neutral')
+el('text', { x: L - 10, y: sy(-3) + 4, 'text-anchor': 'end', fill: '#898781', 'font-size': 12 }, 'Undesirable')
+el('text', { x: (L + W - R) / 2, y: H - 8, 'text-anchor': 'middle', fill: '#898781', 'font-size': 12 }, 'Time (the owner\'s relationship with her dog\'s social life)')
+
+// smooth path through points
+function path(pts) {
+  let d = `M ${sx(pts[0].x)} ${sy(pts[0].y)}`
+  for (let i = 1; i < pts.length; i++) {
+    const a = pts[i - 1], b = pts[i], mx = (sx(a.x) + sx(b.x)) / 2
+    d += ` C ${mx} ${sy(a.y)}, ${mx} ${sy(b.y)}, ${sx(b.x)} ${sy(b.y)}`
+  }
+  return d
+}
+el('path', { d: path(current), fill: 'none', stroke: 'var(--current)', 'stroke-width': 2 })
+el('path', { d: path(ideal), fill: 'none', stroke: 'var(--ideal)', 'stroke-width': 2 })
+
+const tip = document.getElementById('tip')
+function dots(pts, color, above) {
+  pts.forEach((p) => {
+    const cx = sx(p.x), cy = sy(p.y)
+    el('circle', { cx, cy, r: 5, fill: color, stroke: '#fcfcfb', 'stroke-width': 2 })
+    const t = el('text', { x: cx, y: above ? cy - 14 : cy + 22, 'text-anchor': 'middle', fill: '#0b0b0b', 'font-size': 12.5, 'font-weight': 600 }, p.feel)
+    if (p.mark) {
+      el('circle', { cx: cx + 16, cy: above ? cy - 32 : cy + 38, r: 10, fill: '#0b0b0b' })
+      el('text', { x: cx + 16, y: (above ? cy - 32 : cy + 38) + 4, 'text-anchor': 'middle', fill: '#fff', 'font-size': 11, 'font-weight': 700 }, String(p.mark))
+    }
+    const hit = el('circle', { cx, cy, r: 18, fill: 'transparent' })
+    hit.addEventListener('mouseenter', () => {
+      tip.innerHTML = `<b>${p.label}</b>${p.feel} · ${above ? 'Ideal' : 'Current'}`
+      tip.style.display = 'block'
+      const box = svg.getBoundingClientRect(), scale = box.width / W
+      tip.style.left = (cx * scale + 20) + 'px'; tip.style.top = (cy * scale) + 'px'
+    })
+    hit.addEventListener('mouseleave', () => { tip.style.display = 'none' })
+  })
+}
+dots(current, 'var(--current)', false)
+dots(ideal, 'var(--ideal)', true)
+
+const table = document.getElementById('table')
+table.innerHTML = '<tr><th>Step</th><th>Current moment</th><th>Feeling</th><th>Intensity</th><th>Ideal moment</th><th>Feeling</th><th>Intensity</th></tr>' +
+  current.map((c, i) => `<tr><td>${i + 1}</td><td>${c.label}</td><td>${c.feel}</td><td>${c.y}</td><td>${ideal[i].label}</td><td>${ideal[i].feel}</td><td>${ideal[i].y}</td></tr>`).join('')
+</script>
+</body>
+</html>
