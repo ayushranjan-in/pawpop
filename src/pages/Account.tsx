@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { navigate, type AppState } from '../App'
-import { CALENDAR, PLAN, POP_UP_DAYS, SAMPLE_BOOKING, SAMPLE_OWNER, SAMPLE_PET, VET_TECH, VET_VISIT, doneOnTheSpot, money, type VetOption } from '../data'
+import { CALENDAR, PLAN, POP_UP_DAYS, POSTED_PRICES, SAMPLE_BOOKING, SAMPLE_OWNER, SAMPLE_PET, VET_TECH, VET_VISIT, doneOnTheSpot, money, type VetOption } from '../data'
 import { PetPhoto, PlanCard } from '../ui'
 
 export type AccountTab = 'plan' | 'calendar' | 'vet'
@@ -60,8 +60,21 @@ export function Account({ pet, owner, booking, tab }: AppState & { tab: AccountT
               <div className="panel">
                 <span className="panel-label">Booked</span>
                 <p>
-                  Spay at the partner clinic, <b>Jan 12</b>, $120. Member price, posted.
+                  Spay at the partner clinic, <b>Jan 12</b>, $120.
                 </p>
+              </div>
+              <div className="panel">
+                <span className="panel-label">Member prices at your partner clinic</span>
+                <table className="price-table">
+                  <tbody>
+                    {POSTED_PRICES.map((row) => (
+                      <tr key={row.what}>
+                        <td>{row.what}</td>
+                        <td>{row.price}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>

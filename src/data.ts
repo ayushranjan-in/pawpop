@@ -116,7 +116,6 @@ export const CALENDAR = {
 }
 
 export const POSTED_PRICES = [
-  { what: 'First Sniff visit', price: '$0' },
   { what: 'Spay or neuter', price: '$120' },
   { what: 'Vaccine booster', price: '$30' },
   { what: 'Check-up', price: '$85' },
