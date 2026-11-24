@@ -22,7 +22,9 @@
 body { margin: 0; -webkit-font-smoothing: antialiased; }
 button { font: inherit; color: inherit; cursor: pointer; background: none; border: none; padding: 0; }
 input { font: inherit; color: inherit; }
-h1, h2, h3 { letter-spacing: -0.02em; line-height: 1.15; margin: 0; }
+h1, h2, h3 { letter-spacing: -0.02em; line-height: 1.15; margin: 0; text-wrap: balance; }
+/* No single word or number left alone on the last line ("Mar / 3."). */
+p, li, td { text-wrap: pretty; }
 h1 { font-size: clamp(40px, 5vw, 58px); font-weight: 800; }
 h2 { font-size: clamp(26px, 3vw, 38px); font-weight: 750; margin-bottom: 10px; }
 h3 { font-size: 19px; font-weight: 700; }
