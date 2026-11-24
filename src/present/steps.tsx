@@ -111,7 +111,7 @@ export const STEPS: Step[] = [
     title: 'Mar 3 · Partner clinic',
     actions: [{ click: '.tab', text: 'Vet visit' }],
     target: '.code-big',
-    say: 'Miso swallowed a sock.',
+    say: 'Miso swallowed a battery.',
   },
   {
     kind: 'site',

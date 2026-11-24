@@ -128,17 +128,17 @@ export const VET_VISIT = {
   date: 'Mar 3',
   place: 'Partner clinic',
   petAgeThen: '7 months',
-  problem: 'swallowed a sock',
+  problem: 'swallowed a battery',
   budgetCode: 'PP-4821',
   options: [
     { id: 'A', what: 'Remove it with a scope', price: 1400, note: 'No surgery, home tonight · $160/mo for 8 months' },
     { id: 'B', what: 'Surgery, 1 night', price: 2900, note: "If the scope can't reach it" },
-    { id: 'C', what: 'Fluids, X-ray in 12 h', price: 450, note: 'Only if the vet thinks it can pass' },
+    { id: 'C', what: 'Fluids, X-ray in 12 h', price: 450, note: 'Only if the vet thinks it can pass safely' },
   ] satisfies VetOption[],
   secondLook: {
     who: 'An independent vet, not paid by this clinic, checked the X-ray and the estimate in 15 minutes.',
     verdict: 'Option A is a sound first step',
-    detail: 'The sock is still in the stomach, where a scope can reach it. Surgery is only needed if the scope fails. Waiting is not advised for a sock this size.',
+    detail: 'The battery is still in the stomach, where a scope can reach it. Surgery is only needed if the scope fails. A battery can burn the stomach lining, so waiting is not advised.',
     estimate: 'Prices are in the normal range for NYC clinics.',
   },
   plan: {
