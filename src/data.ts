@@ -1,142 +1,173 @@
-// Mock data for the prototype. Every person, dog, place, and session here is
-// invented for demonstration; the journey and rules follow docs/pawpop-product.txt.
+// The one journey the prototype shows: Maya adopts Miso, books a free First Sniff,
+// leaves with a cost plan, and later faces a big vet bill. The people, pets, prices
+// and partners are illustrative. The numbers match the six Solution V3 screens on
+// the Week 10 Miro board (miro/week10-solution-v3.html), so change them in both places.
 
-export type PlayStyle = 'Chaser' | 'Wrestler' | 'Sniffer' | 'Ball fanatic' | 'Prefers people'
-export type DogSociability = 'Loves everyone' | 'Picky' | 'Nervous' | 'Prefers no dogs'
+export type Species = 'Dog' | 'Cat'
 
-export type DogProfile = {
+export type Pet = {
   name: string
-  breed: string
+  species: Species
   age: string
-  size: 'Small' | 'Medium' | 'Large'
-  sex: 'Female' | 'Male'
-  neutered: boolean
-  sociability: DogSociability
-  playStyle: PlayStyle
-  energy: 'Low' | 'Medium' | 'High'
-  loves: string
-  avoids: string
-  scaredOf: string
-  food: string
-  health: string
-  routine: string
-  vouch: string
+  adoptedFrom: string
+  /** ISO date, e.g. 2026-11-22 */
+  adoptedOn: string
 }
 
-export type PersonProfile = {
+export type Owner = {
   name: string
-  neighborhood: string
-  aloneHours: string
-  needs: string[]
-  building: 'Doorman building' | 'Walk-up' | 'Elevator, no doorman' | 'House'
-  experience: 'First dog' | 'A few dogs' | 'Lifelong'
-  learn: string
+  phone: string
+  bigBillPlan: string
 }
 
-export const STARTER_DOG: DogProfile = {
-  name: 'Biscuit',
-  breed: 'French bulldog mix',
-  age: '3 years',
-  size: 'Small',
-  sex: 'Female',
-  neutered: true,
-  sociability: 'Picky',
-  playStyle: 'Sniffer',
-  energy: 'Medium',
-  loves: 'small calm dogs and the grass by the river',
-  avoids: 'big bouncy dogs who rush at me',
-  scaredOf: 'elevators and loud trucks',
-  food: 'Chicken makes me itch.',
-  health: 'Healthy, allergic to chicken. Vet: Dr. Lee, W 112th St.',
-  routine: 'Walks at 7:30 a.m. and 6:30 p.m. Naps all afternoon.',
-  vouch: 'Jordan (neighbor), Rosa T. (sitter)',
-}
-
-export const EMPTY_DOG: DogProfile = {
-  name: '',
-  breed: '',
-  age: '',
-  size: 'Small',
-  sex: 'Female',
-  neutered: true,
-  sociability: 'Picky',
-  playStyle: 'Sniffer',
-  energy: 'Medium',
-  loves: '',
-  avoids: '',
-  scaredOf: '',
-  food: '',
-  health: '',
-  routine: '',
-  vouch: '',
-}
-
-export const EMPTY_PERSON: PersonProfile = { name: '', neighborhood: '', aloneHours: '', needs: [], building: 'Walk-up', experience: 'First dog', learn: '' }
-
-export const STARTER_PERSON: PersonProfile = {
-  name: 'Maya',
-  neighborhood: 'Morningside Heights',
-  aloneHours: '9 a.m. to 6 p.m. on weekdays',
-  needs: ['Play with the right dogs', 'A sitter I can trust'],
-  building: 'Walk-up',
-  experience: 'First dog',
-  learn: 'How to read when Biscuit is getting nervous',
-}
-
-export const NEED_OPTIONS = [
-  'Play with the right dogs',
-  'Midday walks',
-  'A sitter I can trust',
-  'Travel cover',
-  'A groomer or daycare that suits my dog',
-  'Dog-friendly places',
-]
-
-export type Session = {
+export type PopUpDay = {
   id: string
   day: string
-  time: string
+  shortDay: string
+  hours: string
   place: string
-  distance: string
+  address: string
+  withWho: string
+  times: string[]
   spotsLeft: number
-  host: string
-  kind: 'First Sniff' | 'Quiet Pop'
 }
 
-export const FIRST_SNIFFS: Session[] = [
-  { id: 's1', day: 'Saturday, Oct 24', time: '9:00 to 9:45 a.m.', place: 'Church hall, W 114th St', distance: '6 min walk', spotsLeft: 2, host: 'Dana R., CPDT-KA', kind: 'First Sniff' },
-  { id: 's2', day: 'Sunday, Oct 25', time: '8:00 to 8:45 a.m.', place: 'Riverside Park dog run at 105th St (quiet hour)', distance: '9 min walk', spotsLeft: 4, host: 'Luis M., CPDT-KA', kind: 'First Sniff' },
-  { id: 's3', day: 'Tuesday, Oct 27', time: '7:00 to 7:45 p.m.', place: 'School yard, W 109th St', distance: '4 min walk', spotsLeft: 3, host: 'Dana R., CPDT-KA', kind: 'First Sniff' },
+export type Booking = { dayId: string; time: string }
+
+export const ADOPTED_FROM = ['ACC Manhattan', 'Another ACC center', 'A rescue group', 'Somewhere else'] as const
+
+/** What gets done on the spot at First Sniff. New York City licenses dogs, not cats. */
+export const doneOnTheSpot = (species: Species) => (species === 'Dog' ? 'Core vaccines, microchip and license' : 'Core vaccines and microchip')
+export const BIG_BILL_PLANS = ['Savings', 'Pet insurance', 'A credit card', 'Not sure yet'] as const
+
+export const EMPTY_PET: Pet = { name: '', species: 'Dog', age: '', adoptedFrom: '', adoptedOn: '' }
+export const SAMPLE_PET: Pet = { name: 'Miso', species: 'Dog', age: '4 months', adoptedFrom: 'ACC Manhattan', adoptedOn: '2026-11-22' }
+
+export const EMPTY_OWNER: Owner = { name: '', phone: '', bigBillPlan: '' }
+export const SAMPLE_OWNER: Owner = { name: 'Maya', phone: '(646) 555-0142', bigBillPlan: 'Not sure yet' }
+
+export const VET_TECH = 'Ana R., licensed vet tech'
+export const FIRST_SNIFF_MINUTES = 30
+export const FREE_WINDOW_DAYS = 30
+
+export const POP_UP_DAYS: PopUpDay[] = [
+  {
+    id: 'dec5',
+    day: 'Saturday, Dec 5',
+    shortDay: 'Sat, Dec 5',
+    hours: '10:00 a.m. to 1:00 p.m.',
+    place: 'ACC Manhattan',
+    address: '326 E 110th St',
+    withWho: 'With the partner clinic team from Amsterdam Ave',
+    times: ['10:00', '10:30', '11:00', '11:30', '12:00'],
+    spotsLeft: 9,
+  },
+  {
+    id: 'dec12',
+    day: 'Saturday, Dec 12',
+    shortDay: 'Sat, Dec 12',
+    hours: '9:00 a.m. to 12:00 p.m.',
+    place: 'Partner clinic',
+    address: 'Amsterdam Ave at W 104th St',
+    withWho: 'With two Manhattan rescue groups',
+    times: ['9:00', '9:30', '10:00', '11:00'],
+    spotsLeft: 6,
+  },
+  {
+    id: 'dec20',
+    day: 'Sunday, Dec 20',
+    shortDay: 'Sun, Dec 20',
+    hours: '11:00 a.m. to 2:00 p.m.',
+    place: 'Partner clinic',
+    address: 'Park Slope, Brooklyn',
+    withWho: 'With a Brooklyn rescue group',
+    times: ['11:00', '11:30', '12:30', '1:00'],
+    spotsLeft: 12,
+  },
 ]
 
-export const QUIET_POPS: Session[] = [
-  { id: 'q1', day: 'Saturday, Oct 24', time: '10:00 to 10:30 a.m.', place: 'Church hall, W 114th St (private)', distance: '6 min walk', spotsLeft: 1, host: 'Dana R., CPDT-KA', kind: 'Quiet Pop' },
-]
+export const SAMPLE_BOOKING: Booking = { dayId: 'dec5', time: '10:30' }
 
-export type Friend = { dog: string; owner: string; breed: string; note: string; emoji: string }
+export type PlanLine = { item: string; cost: string; done?: boolean }
 
-export const MATCHES: Friend[] = [
-  { dog: 'Pepper', owner: 'Jordan', breed: 'Beagle, 4', note: 'Played sniff-and-chase with Biscuit for 20 minutes.', emoji: '🐕' },
-  { dog: 'Mochi', owner: 'Priya', breed: 'Pug, 2', note: 'Calm, parallel sniffing. A good walking buddy.', emoji: '🐶' },
-  { dog: 'Olive', owner: 'Sam', breed: 'Australian shepherd mix, 6', note: 'Gentle. Biscuit relaxed around her within minutes.', emoji: '🦮' },
-]
-
-export type Recommendation = {
-  category: 'Sitter' | 'Groomer' | 'Daycare' | 'Vet' | 'Place'
-  name: string
-  detail: string
-  fromDogs: string
-  wouldReturn: string
-  lastUsed: string
-  checkedByHost: boolean
+export const PLAN = {
+  madeOn: 'Dec 5',
+  yearTotal: 2185,
+  monthly: 182,
+  lines: [
+    { item: 'Core vaccines', cost: 'done', done: true },
+    { item: 'Food and supplies', cost: '$95 / mo' },
+    { item: 'Flea, tick and heartworm', cost: '$25 / mo' },
+    { item: 'Spay at partner clinic, Jan 12', cost: '$120' },
+    { item: 'Vaccine boosters', cost: '$60' },
+    { item: 'Check-up at 1 year', cost: '$85' },
+    { item: 'Emergency cushion', cost: '$40 / mo' },
+  ] satisfies PlanLine[],
+  lifetimeNote: 'Over a lifetime, dogs cost $22,000-61,000.',
 }
 
-export const RECOMMENDATIONS: Recommendation[] = [
-  { category: 'Sitter', name: 'Rosa T. (home sitter)', detail: 'Small dogs only, quiet apartment, W 110th St', fromDogs: '3 calm small dogs within 10 blocks', wouldReturn: '3 of 3 would book again', lastUsed: 'Used 2 weeks ago by Pepper', checkedByHost: true },
-  { category: 'Sitter', name: 'Ben K. (drop-in visits)', detail: 'Two visits a day, small and senior dogs', fromDogs: '2 picky small dogs within 10 blocks', wouldReturn: '2 of 2 would book again', lastUsed: 'Used last month by Olive', checkedByHost: false },
-  { category: 'Vet', name: 'Riverside Animal Clinic', detail: 'Fear-free handling, written estimates before treatment', fromDogs: '6 small dogs nearby', wouldReturn: '5 of 6 would go back', lastUsed: 'Visited last week by Pepper', checkedByHost: true },
-  { category: 'Groomer', name: 'Little Paws Grooming', detail: 'Hand-dry option for dogs scared of dryers', fromDogs: '4 nervous small dogs nearby', wouldReturn: '4 of 4 would go back', lastUsed: 'Used last week by Olive', checkedByHost: true },
-  { category: 'Daycare', name: 'Westside Small Dog Den', detail: 'Separate room for small, low-energy dogs', fromDogs: '2 picky dogs like Biscuit', wouldReturn: '1 of 2 would go back', lastUsed: 'Used last month by Mochi', checkedByHost: false },
-  { category: 'Place', name: 'Corner cafe patio, Amsterdam Ave', detail: 'Outdoor tables, quiet before 10 a.m.', fromDogs: '5 small dogs nearby', wouldReturn: '5 of 5 recommend', lastUsed: 'Visited yesterday by Mochi', checkedByHost: false },
+export const CALENDAR = {
+  month: 'December',
+  spent: 131,
+  upcoming: [
+    { date: 'Dec 19', what: 'Booster shot', cost: 30 },
+    { date: 'Jan 12', what: 'Spay at partner clinic', cost: 120 },
+    { date: 'Feb 1', what: 'Flea and tick refill', cost: 25 },
+    { date: 'Nov 2027', what: '1-year check-up', cost: 85 },
+  ],
+  cushionSaved: 120,
+  cushionGoal: 500,
+}
+
+export const POSTED_PRICES = [
+  { what: 'First Sniff visit', price: '$0' },
+  { what: 'Spay or neuter', price: '$120' },
+  { what: 'Vaccine booster', price: '$30' },
+  { what: 'Check-up', price: '$85' },
+  { what: 'Flea, tick and heartworm', price: '$25 / mo' },
 ]
 
+export type VetOption = { id: 'A' | 'B' | 'C'; what: string; price: number; note: string }
+
+export const VET_VISIT = {
+  date: 'Mar 3',
+  place: 'Partner clinic',
+  petAgeThen: '7 months',
+  problem: 'swallowed a sock',
+  budgetCode: 'PP-4821',
+  options: [
+    { id: 'A', what: 'Remove it with a scope', price: 1400, note: 'No surgery, home tonight · $160/mo for 8 months' },
+    { id: 'B', what: 'Surgery, 1 night', price: 2900, note: "If the scope can't reach it" },
+    { id: 'C', what: 'Fluids, X-ray in 12 h', price: 450, note: 'Only if the vet thinks it can pass' },
+  ] satisfies VetOption[],
+  secondLook: {
+    who: 'An independent vet, not paid by this clinic, checked the X-ray and the estimate in 15 minutes.',
+    verdict: 'Option A is a sound first step',
+    detail: 'The sock is still in the stomach, where a scope can reach it. Surgery is only needed if the scope fails. Waiting is not advised for a sock this size.',
+    estimate: 'Prices are in the normal range for NYC clinics.',
+  },
+  plan: {
+    fromCushion: 120,
+    payments: 8,
+    perMonth: 160,
+    interest: 0,
+    firstPayment: 'Apr 3',
+    compare: 'Miss the deadline, and interest of about 27-33% is charged on the whole bill, back to today.',
+  },
+}
+
+export const money = (n: number) => `$${n.toLocaleString('en-US')}`
+
+/** "2026-11-22" -> "Nov 22" (read as a calendar date, no time zone shift). */
+export function shortDate(iso: string): string {
+  const [y, m, d] = iso.split('-').map(Number)
+  if (!y || !m || !d) return ''
+  return new Date(y, m - 1, d).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+}
+
+/** The last day of the free First Sniff window: the adoption date plus 30 days. */
+export function freeUntil(iso: string): string {
+  const [y, m, d] = iso.split('-').map(Number)
+  if (!y || !m || !d) return ''
+  return new Date(y, m - 1, d + FREE_WINDOW_DAYS).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+}

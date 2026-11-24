@@ -1,8 +1,7 @@
 import type { ReactNode } from 'react'
-import type { DogProfile } from './data'
-import { dogVoice } from './voice'
+import { PLAN, money, type Pet } from './data'
 
-export function Chips<T extends string>({ options, value, onChange }: { options: readonly T[]; value: T; onChange: (v: T) => void }) {
+export function Chips<T extends string>({ options, value, onChange }: { options: readonly T[]; value: T | ''; onChange: (v: T) => void }) {
   return (
     <div className="chips">
       {options.map((option) => (
@@ -24,18 +23,20 @@ export function Field({ label, hint, children }: { label: string; hint?: string;
   )
 }
 
-// Sample dogs have stock photos (Unsplash); any other name gets its initial.
-const PHOTOS: Record<string, string> = {
-  Biscuit: '1583511655857-d19b40a7a54e',
-  Pepper: '1543466835-00a7907e9de1',
-  Mochi: '1517849845537-4d257902454a',
-  Olive: '1587300003388-59208cc962cb',
+export function FillButton({ onClick }: { onClick: () => void }) {
+  return (
+    <button type="button" className="fill-btn" onClick={onClick}>
+      Fill with sample data
+    </button>
+  )
 }
-export const photoUrl = (id: string, w = 400) => `https://images.unsplash.com/photo-${id}?w=${w}&q=80&auto=format&fit=crop`
 
-export function DogAvatar({ name, size = 56 }: { name: string; size?: number }) {
+// Only the sample pet has a photo (served from public/img, so the demo needs no network).
+const PHOTOS: Record<string, string> = { Miso: '/img/miso.jpg' }
+
+export function PetPhoto({ name, size = 56 }: { name: string; size?: number }) {
   const photo = PHOTOS[name]
-  if (photo) return <img className="avatar" src={photoUrl(photo, size * 2)} alt={name} style={{ width: size, height: size }} />
+  if (photo) return <img className="avatar" src={photo} alt={name} style={{ width: size, height: size }} />
   return (
     <div className="avatar" style={{ width: size, height: size, fontSize: size * 0.42 }}>
       {name.slice(0, 1).toUpperCase() || '?'}
@@ -43,54 +44,32 @@ export function DogAvatar({ name, size = 56 }: { name: string; size?: number }) 
   )
 }
 
-export function ProfileCard({ dog, verified, verifiedNote }: { dog: DogProfile; verified: boolean; verifiedNote?: string }) {
+/** The 12-month cost plan a vet tech builds with the owner at First Sniff. */
+export function PlanCard({ pet }: { pet: Pet }) {
   return (
-    <div className={`passport ${verified ? 'verified' : ''}`}>
-      <div className="passport-top">
-        <DogAvatar name={dog.name} size={64} />
-        <div>
-          <div className="passport-name">{dog.name}</div>
-          <div className="passport-meta">
-            {dog.breed} · {dog.size} · {dog.sex} · {dog.energy} energy · {dog.playStyle}
-          </div>
-        </div>
-        {verified ? (
-          <div className="stamp">
-            Verified
-            <small>{verifiedNote ?? 'First Sniff · Oct 24'}</small>
-            <small>Host: Dana R.</small>
-          </div>
-        ) : (
-          <div className="stamp pending">Not yet verified</div>
-        )}
+    <div className="plan-card">
+      <div className="plan-head">
+        <h3>{pet.name || 'Your pet'}'s cost plan</h3>
+        <span className="muted small-text">Made at First Sniff, {PLAN.madeOn}</span>
       </div>
-      <ul className="voice">
-        {dogVoice(dog).map((line) => (
-          <li key={line}>{line}</li>
-        ))}
-      </ul>
-      <dl className="facts">
-        <dt>Neutered</dt>
-        <dd>{dog.neutered ? 'Yes' : 'No'}</dd>
-        {dog.routine && (
-          <>
-            <dt>Routine</dt>
-            <dd>{dog.routine}</dd>
-          </>
-        )}
-        {dog.health && (
-          <>
-            <dt>Health and vet</dt>
-            <dd>{dog.health}</dd>
-          </>
-        )}
-        {dog.vouch && (
-          <>
-            <dt>Vouched for by</dt>
-            <dd>{dog.vouch}</dd>
-          </>
-        )}
-      </dl>
+      <div className="plan-total">
+        <span className="plan-kicker">Next 12 months</span>
+        <b>{money(PLAN.yearTotal)}</b>
+        <span>
+          Your monthly budget: <b>{money(PLAN.monthly)}</b>
+        </span>
+      </div>
+      <table className="plan-table">
+        <tbody>
+          {PLAN.lines.map((line) => (
+            <tr key={line.item}>
+              <td>{line.item}</td>
+              <td className={line.done ? 'done' : ''}>{line.done ? 'done ✓' : line.cost}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {pet.species === 'Dog' && <p className="muted small-text">{PLAN.lifetimeNote}</p>}
     </div>
   )
 }

@@ -1,15 +1,24 @@
 import { useEffect, useState } from 'react'
-import { EMPTY_DOG, EMPTY_PERSON, type DogProfile, type PersonProfile, type Session } from './data'
+import { EMPTY_OWNER, EMPTY_PET, type Booking, type Owner, type Pet } from './data'
 import { Landing } from './pages/Landing'
-import { Join } from './pages/Join'
-import { Account } from './pages/Account'
+import { Book } from './pages/Book'
+import { Account, type AccountTab } from './pages/Account'
+import { Presenter } from './present/Presenter'
 
-// Hash routes keep the site static: #/ landing, #/join sign-up, #/account the member area.
-export type Route = '/' | '/join' | '/account'
+// Hash routes keep the site static. Every part of the member page has its own
+// address, so a live demo can jump straight back to any moment:
+// #/ home, #/book booking a First Sniff, #/account/plan, #/account/calendar,
+// #/account/vet. #/present opens presentation mode on top of the site.
+export type Route = '/' | '/book' | `/account/${AccountTab}`
+
+const ACCOUNT_TABS: AccountTab[] = ['plan', 'calendar', 'vet']
 
 function readRoute(): Route {
   const hash = window.location.hash.replace('#', '') || '/'
-  return hash === '/join' || hash === '/account' ? hash : '/'
+  if (hash === '/book') return hash
+  if (hash === '/account') return '/account/plan'
+  const tab = hash.startsWith('/account/') ? hash.slice('/account/'.length) : ''
+  return ACCOUNT_TABS.includes(tab as AccountTab) ? (`/account/${tab}` as Route) : '/'
 }
 
 export function navigate(route: Route, anchor?: string) {
@@ -21,19 +30,20 @@ export function navigate(route: Route, anchor?: string) {
 }
 
 export type AppState = {
-  dog: DogProfile
-  setDog: (dog: DogProfile) => void
-  person: PersonProfile
-  setPerson: (person: PersonProfile) => void
-  session: Session | null
-  setSession: (session: Session) => void
+  pet: Pet
+  setPet: (pet: Pet) => void
+  owner: Owner
+  setOwner: (owner: Owner) => void
+  booking: Booking | null
+  setBooking: (booking: Booking | null) => void
 }
 
 export function App() {
   const [route, setRoute] = useState<Route>(readRoute)
-  const [dog, setDog] = useState<DogProfile>(EMPTY_DOG)
-  const [person, setPerson] = useState<PersonProfile>(EMPTY_PERSON)
-  const [session, setSession] = useState<Session | null>(null)
+  const [pet, setPet] = useState<Pet>(EMPTY_PET)
+  const [owner, setOwner] = useState<Owner>(EMPTY_OWNER)
+  const [booking, setBooking] = useState<Booking | null>(null)
+  const [presenting, setPresenting] = useState(() => window.location.hash === '#/present')
 
   useEffect(() => {
     const onHash = () => setRoute(readRoute())
@@ -41,45 +51,51 @@ export function App() {
     return () => window.removeEventListener('hashchange', onHash)
   }, [])
 
-  const state: AppState = { dog, setDog, person, setPerson, session, setSession }
+  const resetDemo = () => {
+    setPet(EMPTY_PET)
+    setOwner(EMPTY_OWNER)
+    setBooking(null)
+  }
+
+  const state: AppState = { pet, setPet, owner, setOwner, booking, setBooking }
+  const inAccount = route.startsWith('/account/')
 
   return (
     <>
-      <Nav route={route} />
-      <div className="page" key={route}>
+      <Nav inAccount={inAccount} />
+      <div className="page" key={inAccount ? '/account' : route}>
         {route === '/' && <Landing />}
-        {route === '/join' && <Join {...state} />}
-        {route === '/account' && <Account {...state} />}
+        {route === '/book' && <Book {...state} />}
+        {inAccount && <Account {...state} tab={route.slice('/account/'.length) as AccountTab} />}
       </div>
-      <Footer />
+      <Footer onPresent={() => setPresenting(true)} />
+      {presenting && <Presenter onExit={() => setPresenting(false)} resetDemo={resetDemo} />}
     </>
   )
 }
 
-function Nav({ route }: { route: Route }) {
+function Nav({ inAccount }: { inAccount: boolean }) {
   return (
     <header className="nav">
       <div className="container nav-inner">
         <button className="brand" onClick={() => navigate('/')}>
           <span className="brand-mark">🐾</span> PawPop
         </button>
-        {route !== '/account' ? (
-          <nav className="nav-links">
-            <button onClick={() => navigate('/', 'how')}>How it works</button>
-            <button onClick={() => navigate('/', 'first-sniff')}>First Sniff</button>
-            <button onClick={() => navigate('/', 'recommendations')}>Recommendations</button>
-          </nav>
-        ) : (
-          <nav className="nav-links">
-            <span className="nav-hello">Morningside Heights</span>
-          </nav>
-        )}
+        <nav className="nav-links">
+          {!inAccount && (
+            <>
+              <button onClick={() => navigate('/', 'pop-up-days')}>Pop-up days</button>
+              <button onClick={() => navigate('/', 'plan')}>Your cost plan</button>
+              <button onClick={() => navigate('/', 'big-bill')}>Big vet bills</button>
+            </>
+          )}
+        </nav>
         <div className="nav-actions">
-          <button className="link-btn" onClick={() => navigate('/account')}>
-            Log in
+          <button className="link-btn" onClick={() => navigate('/account/plan')}>
+            My pet
           </button>
-          <button className="btn btn-primary" onClick={() => navigate('/join')}>
-            Get started
+          <button className="btn btn-primary" onClick={() => navigate('/book')}>
+            Book First Sniff
           </button>
         </div>
       </div>
@@ -87,7 +103,7 @@ function Nav({ route }: { route: Route }) {
   )
 }
 
-function Footer() {
+function Footer({ onPresent }: { onPresent: () => void }) {
   return (
     <footer className="footer">
       <div className="container footer-inner">
@@ -95,28 +111,34 @@ function Footer() {
           <div className="brand static">
             <span className="brand-mark">🐾</span> PawPop
           </div>
-          <p>The right company for your dog. Upper West Side and Morningside Heights, New York.</p>
+          <p>Free first visits and cost plans for new dog and cat owners in New York City.</p>
         </div>
         <div className="footer-cols">
           <div>
-            <b>PawPop</b>
-            <span>How it works</span>
+            <b>For owners</b>
+            <span>Pop-up days</span>
             <span>First Sniff</span>
-            <span>Quiet Pops</span>
+            <span>PawPop Plan</span>
           </div>
           <div>
             <b>For partners</b>
-            <span>Host a Pop in your space</span>
-            <span>Get checked by a host</span>
+            <span>Shelters and rescues</span>
+            <span>Partner clinics</span>
           </div>
           <div>
-            <b>Trust</b>
-            <span>No pay-for-rank</span>
-            <span>Safety and hosts</span>
+            <b>Our promise</b>
+            <span>Posted prices</span>
+            <span>An independent second look</span>
+            <span>No interest charged back</span>
           </div>
         </div>
       </div>
-      <div className="container footer-note">Prototype for Columbia University, User Centric Design and Innovation. All people, dogs, and places are illustrative.</div>
+      <div className="container footer-note">
+        Prototype for Columbia University, User-Centric Innovation (TMGT PS5133). People, pets, prices and partners are illustrative.{' '}
+        <button className="footer-present" onClick={onPresent}>
+          Present
+        </button>
+      </div>
     </footer>
   )
 }

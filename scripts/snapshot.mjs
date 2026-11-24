@@ -19,6 +19,9 @@ const base = process.argv[2] ?? 'http://127.0.0.1:5173/'
 mkdirSync('snapshots', { recursive: true })
 const browser = await chromium.launch({ executablePath: bravePath, headless: true })
 const page = await browser.newPage({ viewport: { width: 1280, height: 860 } })
+const errors = []
+page.on('pageerror', (e) => errors.push(e.message))
+page.on('response', (r) => r.status() >= 400 && errors.push(`${r.status()} ${r.url()}`))
 let n = 0
 const shot = async (name) => {
   await page.waitForTimeout(500)
@@ -26,28 +29,50 @@ const shot = async (name) => {
   await page.screenshot({ path: file, fullPage: true })
   console.log('saved', file)
 }
+const next = () => page.locator('.form-foot .btn-primary').click()
 
 await page.goto(base + '#/')
 await page.waitForLoadState('networkidle')
-await shot('landing')
+await shot('home')
 
-await page.goto(base + '#/join')
-await shot('join-dog-empty')
+await page.goto(base + '#/book')
+await shot('book-pet-empty')
 await page.getByText('Fill with sample data').click()
-await shot('join-dog-filled')
-await page.getByRole('button', { name: 'Continue' }).click()
+await shot('book-pet-filled')
+await next()
+await page.locator('.time-pill', { hasText: '10:30' }).first().click()
+await shot('book-time')
+await next()
 await page.getByText('Fill with sample data').click()
-await shot('join-you')
-await page.getByRole('button', { name: /See .* profile/ }).click()
-await shot('join-review')
-await page.getByRole('button', { name: 'Looks right' }).click()
-await shot('join-book')
-await page.getByRole('button', { name: /Book the first available|Confirm booking/ }).click()
-await shot('join-confirmed')
-await page.getByRole('button', { name: /Fast-forward/ }).click()
+await shot('book-you')
+await next()
+await shot('book-confirmed')
+await page.locator('.confirm .btn-primary').click()
 await page.waitForLoadState('networkidle')
-for (const tab of ['Overview', 'Profile', 'Group', 'Recommendations', 'Share']) {
-  await page.locator('.tab', { hasText: tab }).click()
-  await shot('account-' + tab.toLowerCase())
-}
+await shot('account-plan')
+await page.locator('.tab', { hasText: 'Calendar' }).click()
+await shot('account-calendar')
+await page.locator('.tab', { hasText: 'Vet visit' }).click()
+await shot('vet-front-desk')
+await page.getByRole('button', { name: 'Share my budget code' }).click()
+await shot('vet-options')
+await page.getByRole('button', { name: 'Ask for a second look' }).click()
+await shot('vet-second-look')
+await page.getByRole('button', { name: 'Go with option A' }).click()
+await shot('vet-plan')
+await page.getByRole('button', { name: 'Confirm plan' }).click()
+await shot('vet-done')
+
+// Phone width, for the home page and the vet visit.
+await page.setViewportSize({ width: 390, height: 844 })
+await page.goto(base + '#/')
+await shot('phone-home')
+await page.goto(base + '#/account/vet')
+await page.getByRole('button', { name: 'Share my budget code' }).click()
+await shot('phone-vet-options')
+
 await browser.close()
+if (errors.length) {
+  console.error('Page errors:\n' + errors.join('\n'))
+  process.exit(1)
+}
