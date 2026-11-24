@@ -29,7 +29,6 @@ export type PopUpDay = {
   address: string
   withWho: string
   times: string[]
-  spotsLeft: number
 }
 
 export type Booking = { dayId: string; time: string }
@@ -60,7 +59,6 @@ export const POP_UP_DAYS: PopUpDay[] = [
     address: '326 E 110th St',
     withWho: 'With the partner clinic team from Amsterdam Ave',
     times: ['10:00', '10:30', '11:00', '11:30', '12:00'],
-    spotsLeft: 9,
   },
   {
     id: 'dec12',
@@ -71,7 +69,6 @@ export const POP_UP_DAYS: PopUpDay[] = [
     address: 'Amsterdam Ave at W 104th St',
     withWho: 'With two Manhattan rescue groups',
     times: ['9:00', '9:30', '10:00', '11:00'],
-    spotsLeft: 6,
   },
   {
     id: 'dec20',
@@ -82,7 +79,6 @@ export const POP_UP_DAYS: PopUpDay[] = [
     address: 'Park Slope, Brooklyn',
     withWho: 'With a Brooklyn rescue group',
     times: ['11:00', '11:30', '12:30', '1:00'],
-    spotsLeft: 12,
   },
 ]
 

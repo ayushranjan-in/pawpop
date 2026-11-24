@@ -70,8 +70,8 @@ export function Account({ pet, owner, booking, tab }: AppState & { tab: AccountT
         {tab === 'calendar' && (
           <div className="two-col">
             <div>
-              <h2>No surprises</h2>
-              <p className="muted">Every known cost, before it comes. We text you a week ahead.</p>
+              <h2>Costs coming up</h2>
+              <p className="muted">Every cost we already know about, with its date. We text you a week before each one.</p>
               <div className="panel budget-panel">
                 <div className="line">
                   <span>{CALENDAR.month}</span>

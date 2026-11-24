@@ -60,9 +60,9 @@ export const STEPS: Step[] = [
   {
     kind: 'site',
     title: 'Nov 22 · ACC Manhattan',
-    target: '.next-day-card',
+    target: '#pop-up-days .popup-card',
     say: 'The next pop-up day is Saturday, Dec 5, at the shelter.',
-    loop: glint('.next-day-card > *', 700),
+    loop: glint('#pop-up-days .popup-card', 900),
   },
   {
     kind: 'site',

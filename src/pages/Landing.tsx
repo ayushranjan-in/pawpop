@@ -1,51 +1,80 @@
 import { navigate } from '../App'
-import { CALENDAR, POP_UP_DAYS, POSTED_PRICES, SAMPLE_PET, VET_TECH, VET_VISIT, money } from '../data'
-import { PetPhoto, PlanCard } from '../ui'
+import { POP_UP_DAYS, POSTED_PRICES, SAMPLE_PET, VET_TECH, VET_VISIT, money } from '../data'
+import { PlanCard } from '../ui'
 
+// The opening sentence is the project description on the Week 10 Miro board, word for word.
 export function Landing() {
-  const next = POP_UP_DAYS[0]
   return (
     <>
-      <section className="hero-section">
+      <section id="plan" className="hero-section">
         <div className="container hero-grid">
           <div>
-            <span className="eyebrow">New York City · dogs and cats</span>
-            <h1>Just adopted? Your pet's first vet visit is on us.</h1>
+            <h1>PawPop helps new dog and cat owners in NYC see and handle what their pet will really cost.</h1>
+            <p className="lead">Owners guess a dog costs about $8,000 over its life. The real cost is $22,000-61,000.</p>
             <p className="lead">
-              A free 30-minute First Sniff with a licensed vet tech at the next pop-up day, in your pet's first 30 days. The cheapest care gets done that day,
-              and you leave with a plan for what the next 12 months will cost.
+              In your pet's first 30 days, {VET_TECH.split(',')[0]}, a licensed vet tech, builds your pet's cost plan with you at a free 30-minute session
+              called First Sniff. When a big bill comes later, the clinic already knows your budget and offers options and a true 0% plan.
             </p>
             <div className="hero-ctas">
               <button className="btn btn-primary btn-lg" onClick={() => navigate('/book')}>
-                Book a free First Sniff
+                Get your pet's cost plan
               </button>
-              <button className="text-link" onClick={() => navigate('/', 'pop-up-days')}>
-                See the pop-up days ↓
+              <button className="text-link" onClick={() => navigate('/', 'big-bill')}>
+                What happens with a big bill ↓
               </button>
             </div>
           </div>
-          <div className="next-day">
-            <div className="next-day-photo">
-              <img src="/img/miso.jpg" alt="A happy young beagle mix looking at the camera" />
+          <PlanCard pet={SAMPLE_PET} />
+        </div>
+      </section>
+
+      <section id="big-bill" className="section alt">
+        <div className="container">
+          <h2>When a big bill comes</h2>
+          <p className="lead small narrow">
+            {SAMPLE_PET.name}, {VET_VISIT.petAgeThen}, {VET_VISIT.problem}. This is what happened at the partner clinic on {VET_VISIT.date}.
+          </p>
+          <div className="steps four">
+            <div className="step">
+              <div className="step-num">1</div>
+              <h3>The clinic sees the budget first</h3>
+              <p>
+                Maya showed her budget code, <b>{VET_VISIT.budgetCode}</b>, at the front desk. The clinic saw what she could pay today and per month, so she
+                never had to say a number out loud.
+              </p>
             </div>
-            <div className="next-day-card">
-              <span className="kicker">Next pop-up day</span>
-              <b className="next-day-date">{next.day}</b>
-              <span>{next.hours}</span>
-              <span>
-                {next.place}, {next.address}
-              </span>
-              <span className="muted">{next.withWho}</span>
-              <span className="spots">{next.spotsLeft} First Sniff spots left</span>
+            <div className="step">
+              <div className="step-num">2</div>
+              <h3>Options with prices</h3>
+              <p>
+                The vet offered three ways to treat it, from {money(VET_VISIT.options[2].price)} to {money(VET_VISIT.options[1].price)}, and said what each
+                one risks.
+              </p>
+            </div>
+            <div className="step">
+              <div className="step-num">3</div>
+              <h3>A second look</h3>
+              <p>An independent vet, not paid by the clinic, checked the X-ray and the estimate in 15 minutes.</p>
+            </div>
+            <div className="step">
+              <div className="step-num">4</div>
+              <h3>A 0% plan</h3>
+              <p>
+                {money(VET_VISIT.plan.fromCushion)} came from her savings cushion, then {VET_VISIT.plan.payments} payments of{' '}
+                {money(VET_VISIT.plan.perMonth)}. There is no interest, and none is charged back later. The clinic was paid that day.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="pop-up-days" className="section alt">
+      <section id="pop-up-days" className="section">
         <div className="container">
-          <h2>Pop-up days this month</h2>
-          <p className="lead small narrow">Every month, at a shelter or a partner clinic. Come with your pet's adoption papers.</p>
+          <h2>How to start: First Sniff at a pop-up day</h2>
+          <p className="lead small narrow">
+            First Sniff is free in your pet's first 30 days. It takes 30 minutes with a licensed vet tech, at a monthly pop-up day at a shelter or a partner
+            clinic. Bring the adoption papers.
+          </p>
           <div className="popup-grid">
             {POP_UP_DAYS.map((d) => (
               <div key={d.id} className="popup-card">
@@ -68,74 +97,11 @@ export function Landing() {
         </div>
       </section>
 
-      <section id="plan" className="section">
+      <section id="prices" className="section alt">
         <div className="container split">
           <div>
-            <h2>You walk out with a plan.</h2>
-            <p className="lead small">
-              {VET_TECH.split(',')[0]} builds it with you during the visit: what the next year costs, month by month, and which costs come when. A week before
-              each one, we text you.
-            </p>
-            <div className="mini-cal">
-              {CALENDAR.upcoming.slice(0, 3).map((c) => (
-                <div key={c.date} className="cal-item">
-                  <span>
-                    <b>{c.date}</b> · {c.what}
-                  </span>
-                  <span>{money(c.cost)}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-          <PlanCard pet={SAMPLE_PET} />
-        </div>
-      </section>
-
-      <section id="big-bill" className="section alt">
-        <div className="container">
-          <h2>When a big bill comes</h2>
-          <p className="lead small narrow">
-            {SAMPLE_PET.name}, {VET_VISIT.petAgeThen}, {VET_VISIT.problem}. Here is what happened at the partner clinic on {VET_VISIT.date}.
-          </p>
-          <div className="steps four">
-            <div className="step">
-              <div className="step-num">1</div>
-              <h3>Budget before the exam</h3>
-              <p>
-                Maya showed her budget code, <b>{VET_VISIT.budgetCode}</b>, at the front desk. The clinic saw what she could pay today and per month. She never
-                said a number out loud.
-              </p>
-            </div>
-            <div className="step">
-              <div className="step-num">2</div>
-              <h3>Options, with prices</h3>
-              <p>
-                The vet offered three ways to treat it, from {money(VET_VISIT.options[2].price)} to {money(VET_VISIT.options[1].price)}, and said what each
-                one risks.
-              </p>
-            </div>
-            <div className="step">
-              <div className="step-num">3</div>
-              <h3>A second look</h3>
-              <p>An independent vet, not paid by the clinic, checked the X-ray and the estimate in 15 minutes.</p>
-            </div>
-            <div className="step">
-              <div className="step-num">4</div>
-              <h3>0% that stays 0%</h3>
-              <p>
-                {money(VET_VISIT.plan.fromCushion)} from her savings cushion, then {VET_VISIT.plan.payments} payments of {money(VET_VISIT.plan.perMonth)}.
-                No interest, and none charged back later. The clinic was paid that day.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="prices" className="section">
-        <div className="container split">
-          <div>
-            <h2>Prices, posted</h2>
-            <p className="lead small">What partner clinics charge PawPop members, known before you walk in.</p>
+            <h2>Member prices at partner clinics</h2>
+            <p className="lead small">Every price is posted before you walk in.</p>
           </div>
           <table className="price-table">
             <tbody>
@@ -147,19 +113,6 @@ export function Landing() {
               ))}
             </tbody>
           </table>
-        </div>
-      </section>
-
-      <section className="cta-band">
-        <div className="container cta-inner">
-          <PetPhoto name={SAMPLE_PET.name} size={72} />
-          <h2>
-            The next pop-up day is {next.day}, at {next.place}.
-          </h2>
-          <p>Free in your pet's first 30 days.</p>
-          <button className="btn btn-light btn-lg" onClick={() => navigate('/book')}>
-            Book a free First Sniff
-          </button>
         </div>
       </section>
     </>

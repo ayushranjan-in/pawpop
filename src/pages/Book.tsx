@@ -50,7 +50,7 @@ export function Book({ pet, setPet, owner, setOwner, booking, setBooking }: AppS
             <div className="form-card">
               <div className="form-head">
                 <div>
-                  <h2>Who did you just bring home?</h2>
+                  <h2>Tell us about your pet</h2>
                   <p className="muted">First Sniff is free in a pet's first {FREE_WINDOW_DAYS} days after adoption.</p>
                 </div>
                 <FillButton onClick={() => setPet(SAMPLE_PET)} />
@@ -112,7 +112,6 @@ export function Book({ pet, setPet, owner, setOwner, booking, setBooking }: AppS
                         ))}
                       </div>
                     </div>
-                    <span className="spots">{d.spotsLeft} left</span>
                   </div>
                 ))}
               </div>
@@ -137,7 +136,7 @@ export function Book({ pet, setPet, owner, setOwner, booking, setBooking }: AppS
             <div className="form-card">
               <div className="form-head">
                 <div>
-                  <h2>And you?</h2>
+                  <h2>About you</h2>
                   <p className="muted">We text you the day before, and a week before every cost in your plan.</p>
                 </div>
                 <FillButton onClick={() => setOwner(SAMPLE_OWNER)} />

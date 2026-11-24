@@ -84,9 +84,9 @@ function Nav({ inAccount }: { inAccount: boolean }) {
         <nav className="nav-links">
           {!inAccount && (
             <>
-              <button onClick={() => navigate('/', 'pop-up-days')}>Pop-up days</button>
-              <button onClick={() => navigate('/', 'plan')}>Your cost plan</button>
+              <button onClick={() => navigate('/', 'plan')}>Cost plan</button>
               <button onClick={() => navigate('/', 'big-bill')}>Big vet bills</button>
+              <button onClick={() => navigate('/', 'pop-up-days')}>First Sniff</button>
             </>
           )}
         </nav>
@@ -95,7 +95,7 @@ function Nav({ inAccount }: { inAccount: boolean }) {
             My pet
           </button>
           <button className="btn btn-primary" onClick={() => navigate('/book')}>
-            Book First Sniff
+            Get a cost plan
           </button>
         </div>
       </div>
@@ -111,7 +111,7 @@ function Footer({ onPresent }: { onPresent: () => void }) {
           <div className="brand static">
             <span className="brand-mark">🐾</span> PawPop
           </div>
-          <p>Free first visits and cost plans for new dog and cat owners in New York City.</p>
+          <p>PawPop helps new dog and cat owners in NYC see and handle what their pet will really cost.</p>
         </div>
         <div className="footer-cols">
           <div>
